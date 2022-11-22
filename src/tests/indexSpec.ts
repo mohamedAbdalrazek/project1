@@ -1,5 +1,6 @@
-// import Fun from "../index";
+// Tests will run here
 
+// import Fun from "../index";
 
 // describe('1st Test ',()=>{
 

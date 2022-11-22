@@ -1,18 +1,16 @@
-import express from "express";
-import routes from "./routes";
+import express from 'express'
+import routes from './routes'
 
-const app = express();
+const app = express()
 
-const port = 3030;
+const port = 3030
 
-app.use('/api', routes);
+app.use('/api', routes)
 
-
-//sending a html pages when open certain api
+// sending a html pages when open certain api
 // app.get('/api', (req,res)=>{
 //   res.send('server working')
 // });
-
 
 // app.get('/css', (req,res)=>{
 //   res.send('<h2 style="background-color: grey; text-align: center">  performing some css properties!    </h2>')
@@ -22,9 +20,6 @@ app.use('/api', routes);
 //   res.send('<p> Here we go!</p>')
 
 // })
-
-
-
 
 // to initialize the local server
 app.listen(port, () => {
