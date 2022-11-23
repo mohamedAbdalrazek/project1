@@ -10,14 +10,23 @@ var app = (0, express_1.default)();
 var port = 3030;
 //when you go to http://localhost:3030
 app.get('/', function (req, res) {
-    res.send('<h1 style = "color:green; text-align:center "> Welcome to our server </h1> ');
+    res.send('<h3 style = "color:green; text-align:center "> Welcome to our server <br>to resize your image use the following:<br> http://localhost:3030/image?filename=name&h=height&w=width<br> please wait...</h3>"');
 });
 //when you go to http://localhost:3030/api
 app.use('/api', routes_1.default);
-app.use(express_1.default.static('img'));
-app.get('/img', function (req, res) {
-    var imaGe = sharp('monaliza.jpg').resize(400, 200).toFile('resimg/monalizaResized.jpg');
-    res.send("<h1 style = 'color:orange; text-align:center '>proccessing your image please wait..");
+//using public folder as public to show images we have created
+app.use(express_1.default.static('public'));
+//http://localhost:3030/image?filename=fjord&height=200&width=200
+app.get('/image', function (req, res, next) {
+    var filename = req.query.filename;
+    var w = parseInt(req.query.width);
+    var h = parseInt(req.query.height);
+    // console.log(filename,w,h);
+    //resizing image
+    var image = sharp("image/".concat(filename, ".jpg")).resize(w, h).toFile("public/resimg/".concat(filename, ".jpg"));
+    //displaying the image resized
+    var path = "/resimg/".concat(filename, ".jpg");
+    return res.redirect(path);
 });
 // to initialize the local server
 app.listen(port, function () {

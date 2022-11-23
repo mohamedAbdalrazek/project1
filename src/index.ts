@@ -1,5 +1,6 @@
 import express from 'express';
 import routes from './routes';
+import mid1 from './middlewares/mid1';
 
 const sharp = require('sharp')
 
@@ -9,7 +10,7 @@ const app = express();
 const port = 3030;
 //when you go to http://localhost:3030
 app.get('/',(req,res)=>{
-  res.send('<h3 style = "color:green; text-align:center "> Welcome to our server <br>to resize your image use the following:<br> http://localhost:3030/image?filename=name&h=height&w=width<br> please wait...</h3>"')
+  res.send('<h3 style = "color:green; text-align:center "> Welcome to our server <br>to resize your image use the following:<br> http://localhost:3030/image?filename=name&height=height&width=width<br></h3>"')
 
 })
 
@@ -19,19 +20,19 @@ app.use('/api', routes);
 //using public folder as public to show images we have created
 app.use(express.static('public'));
 
-//http://localhost:3030/image?filename=fjord&h=200&w=200
-app.get('/image',(req,res, next)=>{
+//http://localhost:3030/image?filename=fjord&height=200&width=200
+app.get('/image',mid1,(req,res, next)=>{
 
-  var filename = req.query.filename;
-  var width = req.query.w as unknown as number
-  var height = req.query.h as unknown as number
-  console.log(filename,width,height);
+  const filename = req.query.filename;
+  const w = parseInt(req.query.width as string)
+  const h = parseInt(req.query.height as string)
+  // console.log(filename,w,h);
 
   //resizing image
-  const imaGe = sharp('filename').resize(200,200).toFile(`public/resimg/${filename}.jpg`)
+  const image = sharp(`images/${filename}.jpg`).resize(w,h).toFile(`public/resimg/R${filename}.jpg`)
 
   //displaying the image resized
-  var path = `/resimg/${filename}.jpg`;
+  var path = `resimg/R${filename}.jpg`;
   return res.redirect(path);
   }
 

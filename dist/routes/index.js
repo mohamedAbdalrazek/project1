@@ -6,6 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var routes = express_1.default.Router();
 routes.get('/', function (req, res) {
-    res.send('<h3 style = "color:red; padding-top:50px;padding-left:10px "> You aRe iN Api now! </h3> ');
+    res.send('<h1 style = "color:green; text-align:center "> Welcome to api! </h1>  ');
 });
 exports.default = routes;
