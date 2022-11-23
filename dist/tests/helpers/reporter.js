@@ -21,7 +21,7 @@ var CustomProcessor = /** @class */ (function (_super) {
     function CustomProcessor() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    CustomProcessor.prototype.displayJasmineStarted = function (info, log) {
+    CustomProcessor.prototype.displayJasmineStarted = function (_info, log) {
         return "".concat(log);
     };
     return CustomProcessor;

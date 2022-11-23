@@ -1,4 +1,5 @@
 "use strict";
+// Tests will run here
 // import Fun from "../index";
 // describe('1st Test ',()=>{
 //   it('2 * 2 =4 ?',()=>{
