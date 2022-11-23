@@ -41,28 +41,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var sharp_1 = __importDefault(require("sharp"));
+var fs_1 = __importDefault(require("fs"));
 var Resize = function (req, res, 
 // eslint-disable-next-line @typescript-eslint/ban-types
 next) { return __awaiter(void 0, void 0, void 0, function () {
-    var filename, w, h, error_1;
+    var filename, w, h, path, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("resizing ".concat(req.query.filename, " is being processed"));
                 filename = req.query.filename;
                 w = parseInt(req.query.width);
                 h = parseInt(req.query.height);
-                _a.label = 1;
+                path = "resimg/Resized".concat(h, "_").concat(w).concat(filename, ".jpg");
+                if (!fs_1.default.existsSync("public/resimg/Resized".concat(h, "_").concat(w).concat(filename, ".jpg"))) return [3 /*break*/, 1];
+                console.log('the resized image is already exist! ');
+                return [2 /*return*/, res.redirect(path)];
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, (0, sharp_1.default)("images/".concat(filename, ".jpg")).resize(w, h).toFile("public/resimg/R".concat(filename, ".jpg"))];
+                return [4 /*yield*/, (0, sharp_1.default)("images/".concat(filename, ".jpg"))
+                        .resize(w, h)
+                        .toFile("public/resimg/Resized".concat(h, "_").concat(w).concat(filename, ".jpg"))];
             case 2:
                 _a.sent();
+                console.log("resizing ".concat(req.query.filename, " is being processed"));
                 next();
                 return [3 /*break*/, 4];
             case 3:
                 error_1 = _a.sent();
-                console.log(error_1);
                 res.send('<h3 style="background-color: yellow; text-align: center; color:blue">Invalid query, please check your url query! </h3>');
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];

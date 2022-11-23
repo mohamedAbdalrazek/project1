@@ -12,13 +12,13 @@ describe('Server', function () {
         (0, supertest_1.default)(index_1.default)
             .get('/')
             .expect(200)
-            .end(function (error) { return (error) ? done.fail(error) : done(); });
+            .end(function (error) { return (error ? done.fail(error) : done()); });
     });
     it('api is working ', function (done) {
         (0, supertest_1.default)(index_1.default)
             .get('/api')
             .expect(200)
-            .end(function (error) { return (error) ? done.fail(error) : done(); });
+            .end(function (error) { return (error ? done.fail(error) : done()); });
     });
 });
 //Image resizing tests
@@ -27,18 +27,18 @@ describe('image resizing', function () {
         (0, supertest_1.default)(index_1.default)
             .get('/image?filename=b&height=200&width=200')
             .expect(302)
-            .end(function (error) { return (error) ? done.fail(error) : done(); });
+            .end(function (error) { return (error ? done.fail(error) : done()); });
     });
     it('image resizing for non-existing file ', function (done) {
         (0, supertest_1.default)(index_1.default)
             .get('/image?filename=j&height=200&width=200')
             .expect(200)
-            .end(function (error) { return (error) ? done.fail(error) : done(); });
+            .end(function (error) { return (error ? done.fail(error) : done()); });
     });
     it('image resizing for an invalid query ', function (done) {
         (0, supertest_1.default)(index_1.default)
             .get('/image?filename=a&height=2ef00&width=200')
             .expect(302)
-            .end(function (error) { return (error) ? done.fail(error) : done(); });
+            .end(function (error) { return (error ? done.fail(error) : done()); });
     });
 });
