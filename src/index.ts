@@ -41,3 +41,5 @@ app.get('/image',Resize,mid2,(req,res, next)=>{
 app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);
 });
+
+export default app;

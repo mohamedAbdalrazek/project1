@@ -20,6 +20,7 @@ app.use('/api', routes_1.default);
 app.use(express_1.default.static('public'));
 //here is the main HTTP REQUEST for resizing image, we used 2 middlewares to 
 //perform the sizing (mid1.ts, mid2.ts)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.get('/image', mid1_1.default, mid2_1.default, function (req, res, next) {
     var filename = req.query.filename;
     var path = "resimg/R".concat(filename, ".jpg");
@@ -32,3 +33,4 @@ app.get('/image', mid1_1.default, mid2_1.default, function (req, res, next) {
 app.listen(port, function () {
     console.log("server started at http://localhost:".concat(port));
 });
+exports.default = app;
