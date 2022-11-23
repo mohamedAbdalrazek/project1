@@ -1,44 +1,34 @@
 "use strict";
+//this is the main project ts file
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var routes_1 = __importDefault(require("./routes"));
-var sharp = require('sharp');
+var mid1_1 = __importDefault(require("./middlewares/mid1"));
+var mid2_1 = __importDefault(require("./middlewares/mid2"));
 var app = (0, express_1.default)();
 var port = 3030;
 //when you go to http://localhost:3030
 app.get('/', function (req, res) {
-    res.send('<h3 style = "color:green; text-align:center "> Welcome to our server <br>to resize your image use the following:<br> http://localhost:3030/image?filename=name&h=height&w=width<br> please wait...</h3>"');
+    res.send('<h3 style = "color:green; text-align:center "> Welcome to our server <br>to resize your image use the following:<br> http://localhost:3030/image?filename=name&height=height&width=width<br></h3>"');
 });
 //when you go to http://localhost:3030/api
 app.use('/api', routes_1.default);
-//using public folder as public to show images we have created
+//using static public to show images we have created
 app.use(express_1.default.static('public'));
-//http://localhost:3030/image?filename=fjord&height=200&width=200
-app.get('/image', function (req, res, next) {
+//here is the main HTTP REQUEST for resizing image, we used 2 middlewares to 
+//perform the sizing (mid1.ts, mid2.ts)
+app.get('/image', mid1_1.default, mid2_1.default, function (req, res, next) {
     var filename = req.query.filename;
-    var w = parseInt(req.query.width);
-    var h = parseInt(req.query.height);
-    // console.log(filename,w,h);
-    //resizing image
-    var image = sharp("image/".concat(filename, ".jpg")).resize(w, h).toFile("public/resimg/".concat(filename, ".jpg"));
+    var path = "resimg/R".concat(filename, ".jpg");
     //displaying the image resized
-    var path = "/resimg/".concat(filename, ".jpg");
     return res.redirect(path);
 });
+//example of valid url to resize (a.jpg) in images folder:
+//http://localhost:3030/image?filename=b&height=200&width=200
 // to initialize the local server
 app.listen(port, function () {
     console.log("server started at http://localhost:".concat(port));
 });
-// sending a html pages when open certain api
-// app.get('/api', (req,res)=>{
-//   res.send('server working')
-// });
-// app.get('/css', (req,res)=>{
-//   res.send('<h2 style="background-color: grey; text-align: center">  performing some css properties!    </h2>')
-// });
-// app.get('/image',(req,res)=>{
-//   res.send('<p> Here we go!</p>')
-// })

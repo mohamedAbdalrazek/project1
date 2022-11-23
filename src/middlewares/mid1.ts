@@ -1,8 +1,9 @@
+//This Midlleware is used to resize the image & catching errors in the url if occured
 
 import express from 'express'
 const sharp = require('sharp')
 
-//this midlleware is used to resize the image
+
 const Resize = async (
     req: express.Request, 
     res: express.Response, 
@@ -17,10 +18,17 @@ const Resize = async (
     // console.log(filename,w,h);
   
     //resizing image
+    try{
     const image = await sharp(`images/${filename}.jpg`).resize(w,h).toFile(`public/resimg/R${filename}.jpg`)
-
-
     next()
+    }
+    catch(error){
+        console.log(error)
+        res.send('<h3 style="background-color: yellow; text-align: center; color:blue">Invalid query, please check your url query! </h3>')
+
+    }
+
+
 
 };
 

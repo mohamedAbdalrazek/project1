@@ -1,13 +1,7 @@
-// Tests will run here
+//here is our tests for the project;
 
-// import Fun from "../index";
+// first lets test if invalid url is given:
+// i.e. we test mid1:
 
-// describe('1st Test ',()=>{
 
-//   it('2 * 2 =4 ?',()=>{
-
-//     expect(Fun(2)).toBe(4);
-
-//   })
-
-// })
+// sharp(`images/${filename}.jpg`).resize(w,h).toFile(`public/resimg/R${filename}.jpg`)
