@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// first lets test if the server can be initialized without problems
+//testing if the server can be initialized without problems
 var supertest_1 = __importDefault(require("supertest"));
 var index_1 = __importDefault(require("../index"));
 describe('Server', function () {
@@ -35,10 +35,10 @@ describe('image resizing', function () {
             .expect(200)
             .end(function (error) { return (error) ? done.fail(error) : done(); });
     });
-    it('image resizing for with invalid query ', function (done) {
+    it('image resizing for an invalid query ', function (done) {
         (0, supertest_1.default)(index_1.default)
-            .get('/image?filename=j&height=2ef00&width=200')
-            .expect(200)
+            .get('/image?filename=a&height=2ef00&width=200')
+            .expect(302)
             .end(function (error) { return (error) ? done.fail(error) : done(); });
     });
 });
