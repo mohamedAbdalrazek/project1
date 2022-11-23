@@ -14,6 +14,7 @@ app.get('/',(req,res)=>{
 
 })
 
+
 //when you go to http://localhost:3030/api
 app.use('/api', routes);
 
@@ -22,10 +23,12 @@ app.use(express.static('public'));
 
 //here is the main HTTP REQUEST for resizing image, we used 2 middlewares to 
 //perform the sizing (mid1.ts, mid2.ts)
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.get('/image',Resize,mid2,(req,res, next)=>{
 
   const filename = req.query.filename;
-  var path = `resimg/R${filename}.jpg`;
+  const path = `resimg/R${filename}.jpg`;
 
   //displaying the image resized
     return res.redirect(path);}

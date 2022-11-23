@@ -1,12 +1,13 @@
 //This Midlleware is used to resize the image & catching errors in the url if occured
 
-import express from 'express'
-const sharp = require('sharp')
+import express from 'express';
+import sharp from 'sharp';
 
 
 const Resize = async (
     req: express.Request, 
     res: express.Response, 
+    // eslint-disable-next-line @typescript-eslint/ban-types
     next: Function
 )=>{
 
@@ -19,7 +20,8 @@ const Resize = async (
   
     //resizing image
     try{
-    const image = await sharp(`images/${filename}.jpg`).resize(w,h).toFile(`public/resimg/R${filename}.jpg`)
+
+    await sharp(`images/${filename}.jpg`).resize(w,h).toFile(`public/resimg/R${filename}.jpg`)
     next()
     }
     catch(error){

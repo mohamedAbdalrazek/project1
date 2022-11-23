@@ -5,6 +5,7 @@ import express from 'express'
 const mid2 = (
     req: express.Request, 
     res: express.Response, 
+    // eslint-disable-next-line @typescript-eslint/ban-types
     next: Function
 ): void => {
 
