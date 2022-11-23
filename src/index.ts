@@ -1,8 +1,9 @@
 import express from 'express';
 import routes from './routes';
-import mid1 from './middlewares/mid1';
+import Resize from './middlewares/mid1';
+import mid2 from './middlewares/mid2';
 
-const sharp = require('sharp')
+
 
 const app = express();
 
@@ -21,17 +22,11 @@ app.use('/api', routes);
 app.use(express.static('public'));
 
 //http://localhost:3030/image?filename=fjord&height=200&width=200
-app.get('/image',mid1,(req,res, next)=>{
+app.get('/image',Resize,mid2,(req,res, next)=>{
 
   const filename = req.query.filename;
-  const w = parseInt(req.query.width as string)
-  const h = parseInt(req.query.height as string)
-  // console.log(filename,w,h);
-
-  //resizing image
-  const image = sharp(`images/${filename}.jpg`).resize(w,h).toFile(`public/resimg/R${filename}.jpg`)
-
-  //displaying the image resized
+    
+    //displaying the image resized
   var path = `resimg/R${filename}.jpg`;
   return res.redirect(path);
   }
