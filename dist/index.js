@@ -9,6 +9,7 @@ var routes_1 = __importDefault(require("./routes"));
 var mid1_1 = __importDefault(require("./middlewares/mid1"));
 var mid2_1 = __importDefault(require("./middlewares/mid2"));
 var app = (0, express_1.default)();
+// eslint-disable-next-line @typescript-eslint/no-inferrable-types
 var port = 3030;
 //when you go to http://localhost:3030
 app.get('/', function (req, res) {
@@ -27,7 +28,7 @@ app.get('/image', mid1_1.default, mid2_1.default, function (req, res, next) {
     var h = req.query.height;
     var path = "resimg/Resized".concat(h, "_").concat(w).concat(filename, ".jpg");
     //displaying the image resized
-    return res.redirect(path);
+    res.redirect(path);
 });
 //example of valid url to resize (a.jpg) in images folder:
 //http://localhost:3030/image?filename=b&height=200&width=200

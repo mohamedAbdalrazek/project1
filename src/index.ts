@@ -1,15 +1,16 @@
 //this is the main project ts file
 
-import express from 'express';
+import express, { Application } from 'express';
 import routes from './routes';
 import Resize from './middlewares/mid1';
 import mid2 from './middlewares/mid2';
 
-const app = express();
-const port = 3030;
+const app: Application = express();
+// eslint-disable-next-line @typescript-eslint/no-inferrable-types
+const port:number = 3030;
 
 //when you go to http://localhost:3030
-app.get('/', (req, res) => {
+app.get('/', (req : express.Request, res: express.Response):void => {
   res.send(
     '<h3 style = "color:green; text-align:center "> Welcome to our server <br>to resize your image use the following:<br> http://localhost:3030/image?filename=name&height=height&width=width<br></h3>"'
   );
@@ -25,16 +26,15 @@ app.use(express.static('public'));
 //perform the sizing (mid1.ts, mid2.ts)
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.get('/image', Resize, mid2, (req, res, next) => {
+app.get('/image', Resize, mid2, (req: express.Request, res: express.Response, next) :void => {
   const filename = req.query.filename;
   const w = (req.query.width as unknown) as number;
   const h = (req.query.height as unknown) as number;
 
-
     const path = `resimg/Resized${h}_${w}${filename}.jpg`;
 
     //displaying the image resized
-    return res.redirect(path);
+    res.redirect(path);
   
 
 

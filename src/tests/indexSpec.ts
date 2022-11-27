@@ -2,6 +2,7 @@
 
 //testing if the server can be initialized without problems
 
+import sharp from 'sharp';
 import request from 'supertest';
 import app from '../index';
 
@@ -36,10 +37,11 @@ describe('image resizing', () => {
       .end((error) => (error ? done.fail(error) : done()));
   });
 
-  it('image resizing for an invalid query ', (done) => {
-    request(app)
-      .get('/image?filename=a&height=2ef00&width=200')
-      .expect(302)
-      .end((error) => (error ? done.fail(error) : done()));
+  // its testing image processing function 
+  it('image resizing for a valid query ', function() {
+    
+      expect(async () => {
+        await sharp(`images/${'a'}.jpg`).resize(200, 100).toFile( `public/resimg/Resized${100}_${200}${'a'}.jpg`);
+      }).not.toThrow();
   });
 });

@@ -45,38 +45,38 @@ var fs_1 = __importDefault(require("fs"));
 var Resize = function (req, res, 
 // eslint-disable-next-line @typescript-eslint/ban-types
 next) { return __awaiter(void 0, void 0, void 0, function () {
-    var filename, w, h, path, error_1;
+    var filename, w, h, w_1, h_1, path, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 filename = req.query.filename;
                 w = req.query.width;
                 h = req.query.height;
-                path = "resimg/Resized".concat(h, "_").concat(w).concat(filename, ".jpg");
-                console.log(typeof (w), h);
-                if (!fs_1.default.existsSync("public/resimg/Resized".concat(h, "_").concat(w).concat(filename, ".jpg"))) return [3 /*break*/, 1];
+                if (!(isNaN(w) || isNaN(h))) return [3 /*break*/, 1];
+                res.send('<h3 style="background-color: yellow; text-align: center; color:red">check height and width! </h3>');
+                return [3 /*break*/, 5];
+            case 1:
+                w_1 = parseInt(req.query.width);
+                h_1 = parseInt(req.query.height);
+                path = "resimg/Resized".concat(h_1, "_").concat(w_1).concat(filename, ".jpg");
+                if (!fs_1.default.existsSync("public/resimg/Resized".concat(h_1, "_").concat(w_1).concat(filename, ".jpg"))) return [3 /*break*/, 2];
                 console.log('the resized image is already exist! ');
                 return [2 /*return*/, res.redirect(path)];
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, (0, sharp_1.default)("images/".concat(filename, ".jpg"))
-                        .resize(h, w)
-                        .toFile("public/resimg/Resized".concat(h, "_").concat(w).concat(filename, ".jpg"))];
             case 2:
+                _a.trys.push([2, 4, , 5]);
+                return [4 /*yield*/, (0, sharp_1.default)("images/".concat(filename, ".jpg"))
+                        .resize(h_1, w_1)
+                        .toFile("public/resimg/Resized".concat(h_1, "_").concat(w_1).concat(filename, ".jpg"))];
+            case 3:
                 _a.sent();
                 console.log("resizing ".concat(req.query.filename, " is being processed"));
                 next();
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 5];
+            case 4:
                 error_1 = _a.sent();
-                if (isNaN(w) || isNaN(h)) {
-                    res.send('<h3 style="background-color: yellow; text-align: center; color:red">check height and width! </h3>');
-                }
-                else {
-                    res.send('<h3 style="background-color: yellow; text-align: center; color:blue">Invalid filename! </h3>');
-                }
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                res.send('<h3 style="background-color: yellow; text-align: center; color:blue">Invalid filename! </h3>');
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); };

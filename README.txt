@@ -1,3 +1,10 @@
+New Updates!:  
+	1- devDependencies & DDependencies packages rearranged!                             (in package.json)
+	2- Error messages for all scenarios implemented                                     (in line 18 in src/middlewares/mid1.ts)
+	3-test image processing function in isolation without sending a request to server.  (in line 40 in src/tests/indexSpec.ts)
+	4- parameter type and return type for all functions and callbacks provided          (in line 29 in src/index.ts)
+
+
 
 The Structure:
     1- our compiled .js files are in /dist
