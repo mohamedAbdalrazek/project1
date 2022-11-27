@@ -72,13 +72,15 @@ describe('image resizing', function () {
             .expect(200)
             .end(function (error) { return (error ? done.fail(error) : done()); });
     });
-    // its testing image processing function 
+    // its testing image processing function
     it('image resizing for a valid query ', function () {
         var _this = this;
         expect(function () { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, (0, sharp_1.default)("images/".concat('a', ".jpg")).resize(200, 100).toFile("public/resimg/Resized".concat(100, "_").concat(200).concat('a', ".jpg"))];
+                    case 0: return [4 /*yield*/, (0, sharp_1.default)("images/".concat('a', ".jpg"))
+                            .resize(200, 100)
+                            .toFile("public/resimg/Resized".concat(100, "_").concat(200).concat('a', ".jpg"))];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];

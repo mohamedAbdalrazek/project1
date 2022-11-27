@@ -37,7 +37,7 @@ describe('image resizing', () => {
       .end((error) => (error ? done.fail(error) : done()));
   });
 
-  // its testing image processing function
+  // tests image processing function
   it('image resizing for a valid query ', function () {
     expect(async () => {
       await sharp(`images/${'a'}.jpg`)
