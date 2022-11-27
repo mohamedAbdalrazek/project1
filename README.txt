@@ -1,7 +1,7 @@
 
 The Structure:
-    1- out .js files are in /dist
-    2- .ts files in /src
+    1- our compiled .js files are in /dist
+    2- .ts files are in /src
         i- the main .ts file is index.ts located in src
         ii- has 2 middlewares performing resizing images
 
