@@ -27,13 +27,18 @@ app.use(express.static('public'));
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.get('/image', Resize, mid2, (req, res, next) => {
   const filename = req.query.filename;
-  const w = parseInt(req.query.width as string);
-  const h = parseInt(req.query.height as string);
+  const w = (req.query.width as unknown) as number;
+  const h = (req.query.height as unknown) as number;
 
-  const path = `resimg/Resized${h}_${w}${filename}.jpg`;
 
-  //displaying the image resized
-  return res.redirect(path);
+    const path = `resimg/Resized${h}_${w}${filename}.jpg`;
+
+    //displaying the image resized
+    return res.redirect(path);
+  
+
+
+
 });
 //example of valid url to resize (a.jpg) in images folder:
 //http://localhost:3030/image?filename=b&height=200&width=200

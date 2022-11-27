@@ -23,8 +23,8 @@ app.use(express_1.default.static('public'));
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.get('/image', mid1_1.default, mid2_1.default, function (req, res, next) {
     var filename = req.query.filename;
-    var w = parseInt(req.query.width);
-    var h = parseInt(req.query.height);
+    var w = req.query.width;
+    var h = req.query.height;
     var path = "resimg/Resized".concat(h, "_").concat(w).concat(filename, ".jpg");
     //displaying the image resized
     return res.redirect(path);

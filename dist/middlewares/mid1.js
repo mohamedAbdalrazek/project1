@@ -50,16 +50,17 @@ next) { return __awaiter(void 0, void 0, void 0, function () {
         switch (_a.label) {
             case 0:
                 filename = req.query.filename;
-                w = parseInt(req.query.width);
-                h = parseInt(req.query.height);
+                w = req.query.width;
+                h = req.query.height;
                 path = "resimg/Resized".concat(h, "_").concat(w).concat(filename, ".jpg");
+                console.log(typeof (w), h);
                 if (!fs_1.default.existsSync("public/resimg/Resized".concat(h, "_").concat(w).concat(filename, ".jpg"))) return [3 /*break*/, 1];
                 console.log('the resized image is already exist! ');
                 return [2 /*return*/, res.redirect(path)];
             case 1:
                 _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, (0, sharp_1.default)("images/".concat(filename, ".jpg"))
-                        .resize(w, h)
+                        .resize(h, w)
                         .toFile("public/resimg/Resized".concat(h, "_").concat(w).concat(filename, ".jpg"))];
             case 2:
                 _a.sent();
@@ -68,7 +69,12 @@ next) { return __awaiter(void 0, void 0, void 0, function () {
                 return [3 /*break*/, 4];
             case 3:
                 error_1 = _a.sent();
-                res.send('<h3 style="background-color: yellow; text-align: center; color:blue">Invalid query, please check your url query! </h3>');
+                if (isNaN(w) || isNaN(h)) {
+                    res.send('<h3 style="background-color: yellow; text-align: center; color:red">check height and width! </h3>');
+                }
+                else {
+                    res.send('<h3 style="background-color: yellow; text-align: center; color:blue">Invalid filename! </h3>');
+                }
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }

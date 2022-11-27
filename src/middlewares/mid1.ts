@@ -11,27 +11,45 @@ const Resize = async (
   next: Function
 ) => {
   const filename = req.query.filename;
-  const w = parseInt(req.query.width as string);
-  const h = parseInt(req.query.height as string);
-  const path = `resimg/Resized${h}_${w}${filename}.jpg`;
+  const w = (req.query.width as unknown) as number ;
 
-  //resizing image
-  if (fs.existsSync(`public/resimg/Resized${h}_${w}${filename}.jpg`)) {
-    console.log('the resized image is already exist! ');
-    return res.redirect(path);
-  } else {
-    try {
-      await sharp(`images/${filename}.jpg`)
-        .resize(w, h)
-        .toFile(`public/resimg/Resized${h}_${w}${filename}.jpg`);
-      console.log(`resizing ${req.query.filename} is being processed`);
-      next();
-    } catch (error) {
-      res.send(
-        '<h3 style="background-color: yellow; text-align: center; color:blue">Invalid query, please check your url query! </h3>'
-      );
+  const h = (req.query.height as unknown) as number;
+  //cheking if the given heigh and width are valid 
+  if(  isNaN(w) || isNaN(h)){
+
+        res.send(
+          '<h3 style="background-color: yellow; text-align: center; color:red">check height and width! </h3>'
+        );
+      }
+
+  else{
+    const w = parseInt((req.query.width as unknown) as string );
+
+    const h = parseInt((req.query.height as unknown) as string );
+
+    const path = `resimg/Resized${h}_${w}${filename}.jpg`;
+
+    //resizing image
+    if (fs.existsSync(`public/resimg/Resized${h}_${w}${filename}.jpg`)) {
+      console.log('the resized image is already exist! ');
+      return res.redirect(path);
+    } else {
+      try {
+        await sharp(`images/${filename}.jpg`)
+          .resize(h , w )
+          .toFile(`public/resimg/Resized${h}_${w}${filename}.jpg`);
+        console.log(`resizing ${req.query.filename} is being processed`);
+        next();
+      } catch (error) {
+
+          res.send(
+            '<h3 style="background-color: yellow; text-align: center; color:blue">Invalid filename! </h3>'
+          );
+
+      }
     }
   }
+  
 };
 
 export default Resize;
