@@ -11,21 +11,18 @@ const Resize = async (
   next: Function
 ) => {
   const filename = req.query.filename;
-  const w = (req.query.width as unknown) as number ;
+  const w = req.query.width as unknown as number;
 
-  const h = (req.query.height as unknown) as number;
-  //cheking if the given heigh and width are valid 
-  if(  isNaN(w) || isNaN(h)){
+  const h = req.query.height as unknown as number;
+  //cheking if the given heigh and width are valid
+  if (isNaN(w) || isNaN(h)) {
+    res.send(
+      '<h3 style="background-color: yellow; text-align: center; color:red">check height and width! </h3>'
+    );
+  } else {
+    const w = parseInt(req.query.width as unknown as string);
 
-        res.send(
-          '<h3 style="background-color: yellow; text-align: center; color:red">check height and width! </h3>'
-        );
-      }
-
-  else{
-    const w = parseInt((req.query.width as unknown) as string );
-
-    const h = parseInt((req.query.height as unknown) as string );
+    const h = parseInt(req.query.height as unknown as string);
 
     const path = `resimg/Resized${h}_${w}${filename}.jpg`;
 
@@ -36,20 +33,17 @@ const Resize = async (
     } else {
       try {
         await sharp(`images/${filename}.jpg`)
-          .resize(h , w )
+          .resize(h, w)
           .toFile(`public/resimg/Resized${h}_${w}${filename}.jpg`);
         console.log(`resizing ${req.query.filename} is being processed`);
         next();
       } catch (error) {
-
-          res.send(
-            '<h3 style="background-color: yellow; text-align: center; color:blue">Invalid filename! </h3>'
-          );
-
+        res.send(
+          '<h3 style="background-color: yellow; text-align: center; color:blue">Invalid filename! </h3>'
+        );
       }
     }
   }
-  
 };
 
 export default Resize;

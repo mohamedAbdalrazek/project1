@@ -37,11 +37,12 @@ describe('image resizing', () => {
       .end((error) => (error ? done.fail(error) : done()));
   });
 
-  // its testing image processing function 
-  it('image resizing for a valid query ', function() {
-    
-      expect(async () => {
-        await sharp(`images/${'a'}.jpg`).resize(200, 100).toFile( `public/resimg/Resized${100}_${200}${'a'}.jpg`);
-      }).not.toThrow();
+  // its testing image processing function
+  it('image resizing for a valid query ', function () {
+    expect(async () => {
+      await sharp(`images/${'a'}.jpg`)
+        .resize(200, 100)
+        .toFile(`public/resimg/Resized${100}_${200}${'a'}.jpg`);
+    }).not.toThrow();
   });
 });
