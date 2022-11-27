@@ -1,5 +1,5 @@
 New Updates!:  
-	1-devDependencies & Dependencies packages has been rearranged.                       (in package.json)
+	1-devDependencies & Dependencies packages have been rearranged.                       (in package.json)
 	2-Error messages for all scenarios has been implemented.                             (in line 18 in src/middlewares/mid1.ts)
 	3-testing image processing function has been added.                                  (in line 40 in src/tests/indexSpec.ts)
 	4-parameter type and return type for all functions and callbacks have been provided. (in line 29 in src/index.ts)
